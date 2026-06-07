@@ -15,7 +15,8 @@ public interface CouponActivityMapper extends BaseMapper<CouponActivity> {
      * @param activityId the activity ID
      * @return affected rows (1 = success, 0 = no stock or inactive)
      */
+    /** DB兜底防超卖：仅在剩余库存>0时扣减 */
     @Update("UPDATE coupon_activity SET stock_used = stock_used + 1 " +
             "WHERE id = #{activityId} AND (stock_total - stock_used) > 0 AND status = 1")
-    int incrementStockUsed(@Param("activityId") Long activityId);
+    int deductStock(@Param("activityId") Long activityId);
 }

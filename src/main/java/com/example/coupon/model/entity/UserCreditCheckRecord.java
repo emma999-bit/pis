@@ -14,19 +14,18 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("user_coupon")
-public class UserCoupon {
+@TableName("user_credit_check_record")
+public class UserCreditCheckRecord {
 
     @TableId(type = IdType.AUTO)
     private Long id;
     private Long userId;
     private Long activityId;
-    private Long couponId;
-    /** 0=ACTIVATED 1=CLAIMED 2=USED 3=EXPIRED */
-    private Integer status;
-    private LocalDateTime activateTime;
-    private LocalDateTime claimTime;
-    private LocalDateTime expireTime;
-    private LocalDateTime useTime;
+    private String loanOrderNo;
+    /** 0=未查额 1=已查额 2=已放款 */
+    private Integer checkStatus;
+    private LocalDateTime checkTime;
+    private LocalDateTime loanTime;
     private LocalDateTime createTime;
+    private LocalDateTime updateTime;
 }

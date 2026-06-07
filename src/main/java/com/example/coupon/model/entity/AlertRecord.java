@@ -19,14 +19,9 @@ public class AlertRecord {
 
     @TableId(type = IdType.AUTO)
     private Long id;
-
-    private String alertType;
-
-    private Long activityId;
-
-    private Long userId;
-
-    private String message;
-
-    private LocalDateTime createdTime;
+    private String type;
+    private String bizId;
+    private String detail;
+    private Integer status;
+    private LocalDateTime createTime;
 }

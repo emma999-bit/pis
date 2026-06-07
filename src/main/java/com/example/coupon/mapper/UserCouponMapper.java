@@ -26,4 +26,7 @@ public interface UserCouponMapper extends BaseMapper<UserCoupon> {
      * @return affected rows
      */
     int insertIgnore(UserCoupon userCoupon);
+
+    /** 批量翻转 ACTIVATED→CLAIMED，返回影响行数 */
+    int flipActivatedToClaimed();
 }

@@ -18,4 +18,7 @@ public interface MessageOutboxMapper extends BaseMapper<MessageOutbox> {
      * @return list of eligible pending outbox messages
      */
     List<MessageOutbox> findPendingForRetry(@Param("maxRetryCount") int maxRetryCount);
+
+    /** 查询重试次数已满、待标记DEAD的记录 */
+    List<MessageOutbox> selectDeadCandidates(@Param("maxRetryCount") int maxRetryCount);
 }

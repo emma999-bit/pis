@@ -19,20 +19,18 @@ public class CouponActivity {
 
     @TableId(type = IdType.AUTO)
     private Long id;
-
+    /** 活动标识，对应策略路由key，如 CREDIT_CHECK */
+    private String activityCode;
     private String name;
-
+    private Long couponId;
     private Integer stockTotal;
-
     private Integer stockUsed;
-
     private Integer status;
-
+    private Integer warmupStatus;
+    /** 券有效天数（领取后） */
+    private Integer validDays;
     private LocalDateTime startTime;
-
     private LocalDateTime endTime;
-
-    private LocalDateTime createdTime;
-
-    private LocalDateTime updatedTime;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
 }

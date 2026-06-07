@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.coupon.mapper.MessageOutboxMapper">
+
+    <select id="findPendingForRetry" resultType="com.example.coupon.model.entity.MessageOutbox">
+        SELECT * FROM message_outbox
+         WHERE status      = 'PENDING'
+           AND retry_count  &lt; #{maxRetryCount}
+           AND (next_retry_time IS NULL OR next_retry_time &lt;= NOW())
+         LIMIT 100
+    </select>
+
+    <select id="selectDeadCandidates" resultType="com.example.coupon.model.entity.MessageOutbox">
+        SELECT * FROM message_outbox
+         WHERE status      = 'PENDING'
+           AND retry_count >= #{maxRetryCount}
+    </select>
+
+</mapper>

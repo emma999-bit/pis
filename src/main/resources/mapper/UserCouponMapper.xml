@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.coupon.mapper.UserCouponMapper">
+
+    <!-- INSERT IGNORE 幂等兜底，利用 uk_user_activity 唯一索引 -->
+    <insert id="insertIgnore">
+        INSERT IGNORE INTO user_coupon
+            (user_id, activity_id, coupon_id, status, activate_time, expire_time, create_time)
+        VALUES
+            (#{userId}, #{activityId}, #{couponId}, #{status}, #{activateTime}, #{expireTime}, NOW())
+    </insert>
+
+    <!-- 批量翻转 ACTIVATED(0) → CLAIMED(1)，AND status=0 防并发重复翻转 -->
+    <update id="flipActivatedToClaimed">
+        UPDATE user_coupon
+           SET status     = 1,
+               claim_time = NOW()
+         WHERE status      = 0
+           AND activate_time &lt;= NOW()
+         LIMIT 500
+    </update>
+
+</mapper>

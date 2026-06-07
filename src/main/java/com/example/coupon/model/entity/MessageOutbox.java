@@ -34,7 +34,7 @@ public class MessageOutbox {
 
     private LocalDateTime nextRetryTime;
 
-    private LocalDateTime createdTime;
+    private LocalDateTime createTime;
 
-    private LocalDateTime updatedTime;
+    private LocalDateTime updateTime;
 }
